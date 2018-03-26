@@ -1,0 +1,35 @@
+I"-(function() {
+  this.FloatUI = flight.component(function() {
+    this.attributes({
+      action: 'ul.nav.nav-tabs > li',
+      close: 'i.fa.fa-close'
+    });
+    return this.after('initialize', function() {
+      this.select('action').click((function(_this) {
+        return function(e) {
+          if (_this.select('action').length > 1) {
+            if (_this.$node.hasClass('hover') && $(e.currentTarget).hasClass('active')) {
+              return _this.select('close').click();
+            } else {
+              return _this.$node.addClass('hover');
+            }
+          } else {
+            if (!_this.$node.hasClass('hover')) {
+              return _this.$node.addClass('hover');
+            } else {
+              return _this.select('close').click();
+            }
+          }
+        };
+      })(this));
+      return this.select('close').click((function(_this) {
+        return function() {
+          _this.$node.removeClass('hover');
+          return _this.select('action').removeClass('active');
+        };
+      })(this));
+    });
+  });
+
+}).call(this);
+:ET

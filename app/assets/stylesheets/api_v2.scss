@@ -1,0 +1,60 @@
+@import 'bourbon';
+
+@import 'swagger-ui/highlight.default';
+@import 'swagger-ui/screen';
+
+@import 'vars/bootstrap';
+
+@import 'bootstrap';
+@import 'bootstrap-switch.min';
+
+@import 'vars/basic';
+@import 'vars/custom';
+@import 'layouts/header';
+@import 'font-awesome-sprockets';
+@import 'font-awesome';
+@import 'ngDialog/ngDialog';
+@import 'ngDialog/ngDialog-theme-default';
+@import url(http://fonts.googleapis.com/css?family=Open+Sans);
+@import 'layouts/basic';
+
+.swagger-ui-wrap {
+  h1, h2 {
+    margin: 0;
+  }
+}
+.jumbotron {
+  padding-top: 1px;
+  padding-bottom: 20px;
+}
+.panel-heading {
+  padding-top: 0px;
+  padding-bottom: 2px;
+  margin-top: 0px;
+}
+.panel-default {
+  padding-bottom: 0px;
+  margin-top: 0;
+  .api_header {
+    margin-top: 0px;
+    padding-top: 10px;
+  }
+}
+#documents-api_v2 {
+  table.result {
+    th:nth-child(1) { width: 80px; }
+    th:nth-child(3) { width: 300px; }
+
+    p {
+      margin: 0px;
+      padding: 0px;
+    }
+  }
+
+  footer {
+    margin-top: 30px;
+  }
+}
+.custom-header-font {
+  font-weight: bolder;
+}

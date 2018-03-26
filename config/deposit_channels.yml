@@ -1,0 +1,47 @@
+- id: 200
+  key: satoshi
+  currency: btc
+  sort_order: 1
+  min_confirm: 1
+  max_confirm: 3
+- id: 400
+  key: bank
+  currency: usd
+  sort_order: 2
+  bank_accounts:
+    - bank: 'Dutch Bangla Bank Limited'
+      branch: 'Dhanmondi'
+      holder: 'Khalid Mahmod'
+      account: '110-103-87888'
+- id: 600
+  key: ripple
+  currency: xrp
+  sort_order: 3
+  min_confirm: 1
+  max_confirm: 3
+- id: 800
+  key: litecoin
+  currency: ltc
+  min_confirm: 1
+  max_confirm: 6
+- id: 1000
+  key: deadal
+  currency: bch
+  min_confirm: 1
+  max_confirm: 6
+- id: 1200
+  key: dashcoin
+  currency: dsh
+  min_confirm: 1
+  max_confirm: 6
+- id: 1400
+  key: stellar
+  currency: xlm
+  min_confirm: 1
+  max_confirm: 6
+- id: 1600
+  key: tether
+  currency: usdt
+  min_confirm: 1
+  max_confirm: 6
+

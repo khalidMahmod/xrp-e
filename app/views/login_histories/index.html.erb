@@ -1,0 +1,31 @@
+<%= render 'shared/header' %>
+<div class="container">
+    <h1 class="page-title">Login History</h1>
+    <div class="login-history-container">
+        <div class="row">
+            <table class="table table-condensed table-striped">
+              <thead>
+                  <tr>
+                    <th>Login Time</th>
+                    <th>User Agent</th>
+                    <th>Browser</th>
+                    <th>Country</th>
+                    <th>IP Address</th>
+                  </tr>
+              </thead>
+              <tbody class="list">
+                  <% @login_histories.each do |login_histories| %>
+                      <tr>
+                        <td width="200px"><%= login_histories.created_at.localtime.strftime("%d %b %Y %I:%M:%S %p") %></td>
+                        <td><%= login_histories.user_agent %></td>
+                        <td><%= login_histories.browser_info %></td>
+                        <td><%= login_histories.location %></td>
+                        <td><%= login_histories.ip_address %></td>
+                      </tr>
+                  <% end %>
+                  <%= will_paginate @login_histories %>
+              </tbody>
+            </table>
+        </div>
+    </div>
+</div>

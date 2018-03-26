@@ -1,0 +1,43 @@
+I"8(function() {
+  app.controller('DepositHistoryController', function($scope, $stateParams, $http) {
+    var ctrl;
+    ctrl = this;
+    $scope.predicate = '-id';
+    this.currency = $stateParams.currency;
+    this.account = Account.findBy('currency', this.currency);
+    this.deposits = this.account.deposits().slice(0, 3);
+    this.newRecord = function(deposit) {
+      if (deposit.aasm_state === "submitting") {
+        return true;
+      } else {
+        return false;
+      }
+    };
+    this.noDeposit = function() {
+      return this.deposits.length === 0;
+    };
+    this.refresh = function() {
+      this.deposits = this.account.deposits().slice(0, 3);
+      return $scope.$apply();
+    };
+    this.cancelDeposit = function(deposit) {
+      var deposit_channel;
+      deposit_channel = DepositChannel.findBy('currency', deposit.currency);
+      return $http["delete"]("/deposits/" + deposit_channel.resource_name + "/" + deposit.id).error(function(responseText) {
+        return $.publish('flash', {
+          message: responseText
+        });
+      });
+    };
+    this.canCancel = function(state) {
+      return ['submitting'].indexOf(state) > -1;
+    };
+    return (this.event = function() {
+      return Deposit.bind("create update destroy", function() {
+        return ctrl.refresh();
+      });
+    })();
+  });
+
+}).call(this);
+:ET

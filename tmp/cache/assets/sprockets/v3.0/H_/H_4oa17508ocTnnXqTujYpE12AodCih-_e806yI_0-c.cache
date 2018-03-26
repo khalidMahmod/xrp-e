@@ -1,0 +1,12 @@
+I"(function() {
+  var dsn, ref;
+
+  if (typeof Raven !== "undefined" && Raven !== null) {
+    dsn = (ref = document.querySelector('meta[name="sentry-dsn"]')) != null ? ref.getAttribute('content') : void 0;
+    if (dsn) {
+      Raven.config(dsn).install();
+    }
+  }
+
+}).call(this);
+:ET

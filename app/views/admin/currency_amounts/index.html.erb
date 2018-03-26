@@ -1,0 +1,56 @@
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    <span>Fees Management</span>
+  </div>
+  <table id="DataTable_organization" class="table table-condensed table-hover table-striped">
+    <thead>
+    <tr>
+      <th>Currency Name</th>
+      <th>Deposit Fees (%)</th>
+      <th>Withdraw Fees (%)</th>
+      <th>Min Deposit</th>
+      <th>Max Deposit</th>
+      <th>Min Withdraw</th>
+      <th>Max Withdraw</th>
+      <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @currency_amounts.each_with_index do |currency_amount, index| %>
+      <tr>
+        <td><%= currency_amount.name %></td>
+        <td><%= best_in_place currency_amount, :deposit_fee, :url=> admin_currency_amount_path(currency_amount),
+                              :ok_button => "&#x2714".html_safe, ok_button_class:"btn btn-sm fees-btn-ok",
+                              :cancel_button => "&#x26CC".html_safe, cancel_button_class:"btn btn-sm fees-btn-cancel" %></td>
+        <td><%= best_in_place currency_amount, :withdraw_fee, :url=> admin_currency_amount_path(currency_amount),
+                              :ok_button => "&#x2714".html_safe, ok_button_class:"btn btn-sm fees-btn-ok",
+                              :cancel_button => "&#x26CC".html_safe, cancel_button_class:"btn btn-sm fees-btn-cancel" %></td>
+        <td><%= best_in_place currency_amount, :min_deposit, :url=> admin_currency_amount_path(currency_amount),
+                              :ok_button => "&#x2714".html_safe, ok_button_class:"btn btn-sm fees-btn-ok",
+                              :cancel_button => "&#x26CC".html_safe, cancel_button_class:"btn btn-sm fees-btn-cancel" %></td>
+        <td><%= best_in_place currency_amount, :max_deposit, :url=> admin_currency_amount_path(currency_amount),
+                              :ok_button => "&#x2714".html_safe, ok_button_class:"btn btn-sm fees-btn-ok",
+                              :cancel_button => "&#x26CC".html_safe, cancel_button_class:"btn btn-sm fees-btn-cancel" %></td>
+        <td><%= best_in_place currency_amount, :min_withdraw, :url=> admin_currency_amount_path(currency_amount),
+                              :ok_button => "&#x2714".html_safe, ok_button_class:"btn btn-sm fees-btn-ok",
+                              :cancel_button => "&#x26CC".html_safe, cancel_button_class:"btn btn-sm fees-btn-cancel" %></td>
+        <td><%= best_in_place currency_amount, :max_withdraw, :url=> admin_currency_amount_path(currency_amount),
+                              :ok_button => "&#x2714".html_safe, ok_button_class:"btn btn-sm fees-btn-ok",
+                              :cancel_button => "&#x26CC".html_safe, cancel_button_class:"btn btn-sm fees-btn-cancel" %></td>
+        <td>
+          <%= link_to edit_admin_currency_amount_path(currency_amount), :class => 'btn  btn-xs' do %>
+              <%= image_tag 'icon-edit.png' %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>
+
+<style>
+  .col-trade-fee {
+    width: 50%;
+    text-align: left;
+  }
+</style>

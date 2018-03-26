@@ -1,0 +1,20 @@
+<% unless @one_stellars.empty? %>
+  <div class="panel panel-primary">
+    <div class="panel-heading">
+      <span><%= t('.one') %></span>
+    </div>
+    <%= render partial: 'table', locals: {stelars: @one_stealers} %>
+  </div>
+<% end %>
+<% unless @all_stellars.empty? %>
+  <div class="panel panel-success">
+    <div class="panel-heading">
+      <span><%= t('.all') %></span>
+    </div>
+    <%= render partial: 'table', locals: {stellars: @all_stellars} %>
+  </div>
+<% end %>
+
+<% if @all_stellars.empty? and @one_stellars.empty? %>
+  <h3 class="text-info text-center"><%= t('.empty') %></h3>
+<% end %>

@@ -1,0 +1,24 @@
+<div class="panel panel-info">
+  <div class="panel-heading">
+    <span><%= t('.member_info') %></span>
+    <%= link_to 'View', url_for([:admin, member]), class: 'pull-right', target: '_blank' %>
+  </div>
+  <div class="panel-body">
+    <dl class="dl-horizontal">
+      <dt><strong>Email: </strong></dt>
+      <dd>
+        <%= @member.email %>
+      </dd>
+      <dt><strong>Register At: </strong></dt>
+      <dd>
+        <%= @member.created_at %>
+      </dd>
+      <dt><strong>2Fa Authentication: </strong></dt>
+      <dd>
+        <%= @member.fa_enable ? 'Active' : 'Inactive' %>
+        <%= link_to member.fa_enable? ? 'Disable' : 'Enable', faenable_admin_member_path, class: (@member.fa_enable? ? 'btn btn-xs btn-danger' : 'btn btn-xs btn-success'),  method: :post  %>
+      </dd>
+    </dl>
+  </div>
+</div>
+

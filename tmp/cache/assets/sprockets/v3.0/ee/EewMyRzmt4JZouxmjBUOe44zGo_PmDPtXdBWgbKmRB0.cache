@@ -1,0 +1,55 @@
+I"Ã(function() {
+  this.AccountSummaryUI = flight.component(function() {
+    this.attributes({
+      total_assets: '#total_assets'
+    });
+    this.updateAccount = function(event, data) {
+      var account, amount, currency, results;
+      results = [];
+      for (currency in data) {
+        account = data[currency];
+        amount = (new BigNumber(account.locked)).plus(new BigNumber(account.balance));
+        this.$node.find("tr." + currency + " span.amount").text(formatter.round(amount, 2));
+        results.push(this.$node.find("tr." + currency + " span.locked").text(formatter.round(account.locked, 2)));
+      }
+      return results;
+    };
+    this.updateTotalAssets = function() {
+      var account, currency, fiatCurrency, ref, sum, symbol, ticker;
+      fiatCurrency = gon.fiat_currency;
+      symbol = gon.currencies[fiatCurrency].symbol;
+      sum = 0;
+      ref = this.accounts;
+      for (currency in ref) {
+        account = ref[currency];
+        if (currency === fiatCurrency) {
+          sum += +account.balance;
+          sum += +account.locked;
+        } else if (ticker = this.tickers["" + currency + fiatCurrency]) {
+          sum += +account.balance * +ticker.last;
+          sum += +account.locked * +ticker.last;
+        }
+      }
+      return this.select('total_assets').text("" + symbol + (formatter.round(sum, 2)));
+    };
+    return this.after('initialize', function() {
+      this.accounts = gon.accounts;
+      this.tickers = gon.tickers;
+      this.on(document, 'account::update', this.updateAccount);
+      this.on(document, 'account::update', (function(_this) {
+        return function(event, data) {
+          _this.accounts = data;
+          return _this.updateTotalAssets();
+        };
+      })(this));
+      return this.on(document, 'market::tickers', (function(_this) {
+        return function(event, data) {
+          _this.tickers = data.raw;
+          return _this.updateTotalAssets();
+        };
+      })(this));
+    });
+  });
+
+}).call(this);
+:ET

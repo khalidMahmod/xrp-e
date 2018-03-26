@@ -1,0 +1,97 @@
+<%= render 'shared/header' %>
+<div class="container">
+  <div class="two_fa_title">
+    <h1 class="page-title">Two-factor authentication</h1>
+  </div>
+
+  <div class="login-history-container two-fa-container">
+    <h4>Protect your account in just few minutes by enabling following security option:</h4>
+
+    <div class="row fa_new_page">
+        <% if flash[:error] %>
+          <div class="alert alert-danger">
+            <%=  flash[:error] %>
+          </div>
+            <br />
+        <% end %>
+        <div class="col-xs-24">
+          <h4>Mobile APP based two-factor authentication- Google Authenticator</h4>
+          <ol>
+              <li>
+                <p>Download the "<strong>Google authenticator</strong>" app for your mobile phone:
+                  <%= link_to "Android", "https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2", :class => "authenticator_app_download_link" %>
+                  or <%= link_to "iPhone", "https://itunes.apple.com/us/app/google-authenticator/id388497605?mt=8" , :class => "authenticator_app_download_link"  %>
+                  , <%= link_to "Windows Phone", "https://www.microsoft.com/en-us/store/p/authenticator-for-windows/9nblggh4n8mx" , :class => "authenticator_app_download_link"  %>
+                  , <%= link_to "iPad and iPod", "https://itunes.apple.com/us/app/google-authenticator/id388497605?mt=8" , :class => "authenticator_app_download_link" %>.
+                </p>
+              </li>
+              <li>
+                <p>
+                  Install the "<strong>Google authenticator</strong>" app. <strong>Scan QR barcode</strong> revealed below with mobile app.
+                </p>
+              </li>
+              <li>
+                <p>
+                  Enter the authentication code given by your mobile app in the box.
+                </p>
+              </li>
+            </ol>
+
+            <div class="image_google_authenticator_app_screen">
+            </div>
+            <img src="<%= @user.google_qr_uri %>">
+            <br />
+            <%= form_tag member_mfa_session_path, method: :post do %>
+                <div class="actions">
+                  <table class="new_page_table_for_input_and_enable">
+                    <tr>
+                      <td class="fa_code_text_field_td"><%= text_field :auth, :mfa_code, placeholder: "Enter the code*" , class:"form-control", id:"fa_new_page_code_input"%></td>
+                      <td><%=  submit_tag @user.fa_enable? ? 'Disable' : 'Enable', class: (@user.fa_enable? ? 'btn btn-md btn-danger' : 'btn btn-md btn-success') %></td>
+                    </tr>
+                  </table>
+                  <h4>Authentication Key: </h4>
+                  <div class="btn-group">
+                      <a class="btn btn-primary btn-email" href="#">
+                         <%= @user.google_secret %>
+                      </a>
+                      <button type="button"
+                          class="btn btn-success btn-copy js-tooltip js-copy"
+                          data-toggle="tooltip" data-placement="bottom"
+                          data-copy="<%= @user.google_secret %>">Copy
+                          <!-- icon from google's material design library -->
+                          <svg class="icon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="24" height="24" viewBox="0 0 24 24"><path d="M17,9H7V7H17M17,13H7V11H17M14,17H7V15H14M12,3A1,1 0 0,1 13,4A1,1 0 0,1 12,5A1,1 0 0,1 11,4A1,1 0 0,1 12,3M19,3H14.82C14.4,1.84 13.3,1 12,1C10.7,1 9.6,1.84 9.18,3H5A2,2 0 0,0 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5A2,2 0 0,0 19,3Z" /></svg>
+                      </button>
+                  </div>
+                  <p>Please keep a Copy of The Authentication Key for Backup</p>
+                </div>
+            <% end %>
+        </div>
+        <div class="col-xs-24">
+          <h4>What is Google authenticator?</h4>
+          <div class="image_google_authenticator">
+
+          </div>
+          <div class="jumbotron two-fa-facilities">
+            <ul>
+                <li>Google authenticator protect your XRP-e account
+                from key loggers and password theft. With two-factor
+                authentication, you'll need both your password and
+                an authentication code to login.</li>
+                <li>Once you turn on Google Authentication,
+                you'll get a Authentication code to your authenticator
+                app every time you sign in on a device.</li>
+            </ul>
+          </div>
+            <h4>Why You Should Use Google Authenticator App?</h4>
+            <ul>
+                <li>It works without internet and Network coverage</li>
+                <li>Manage Multiple Accounts in One Place</li>
+                <li>It takes only few minutes to set it up and EASY to use.</li>
+                <li>You can use it without need of Google account.</li>
+                <li>Protects your XRP-e account from keyloggers and password theft.</li>
+                <li>Adds a second layer of security to prevent unauthorized login access.</li>
+            </ul>
+        </div>
+    </div>
+  </div>
+</div>

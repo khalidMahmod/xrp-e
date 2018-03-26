@@ -1,0 +1,83 @@
+I"	function(__obj) {
+  if (!__obj) __obj = {};
+  var __out = [], __capture = function(callback) {
+    var out = __out, result;
+    __out = [];
+    callback.call(this);
+    result = __out.join('');
+    __out = out;
+    return __safe(result);
+  }, __sanitize = function(value) {
+    if (value && value.ecoSafe) {
+      return value;
+    } else if (typeof value !== 'undefined' && value != null) {
+      return __escape(value);
+    } else {
+      return '';
+    }
+  }, __safe, __objSafe = __obj.safe, __escape = __obj.escape;
+  __safe = __obj.safe = function(value) {
+    if (value && value.ecoSafe) {
+      return value;
+    } else {
+      if (!(typeof value !== 'undefined' && value != null)) value = '';
+      var result = new String(value);
+      result.ecoSafe = true;
+      return result;
+    }
+  };
+  if (!__escape) {
+    __escape = __obj.escape = function(value) {
+      return ('' + value)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    };
+  }
+  (function() {
+    (function() {
+      __out.push('<tr data-id=\'');
+    
+      __out.push(__sanitize(this.id));
+    
+      __out.push('\' data-kind=\'');
+    
+      __out.push(__sanitize(this.kind));
+    
+      __out.push('\' class=\'order ');
+    
+      __out.push(__sanitize(this.kind));
+    
+      __out.push('\'>\n  <td class=\'time text-left col-xs-6\'>\n    ');
+    
+      __out.push(formatter.fulltime(this.at));
+    
+      __out.push('\n  </td>\n  <td class=\'kind text-left col-xs-2 ');
+    
+      __out.push(formatter.trend(this.kind));
+    
+      __out.push('\'>\n    ');
+    
+      __out.push(formatter.short_trade(this.kind));
+    
+      __out.push('\n  </td>\n  <td class=\'price text-right col-xs-4\'>\n    ');
+    
+      __out.push(__sanitize(formatter.fix_bid(this.price)));
+    
+      __out.push('\n  </td>\n  <td class=\'volume text-right col-xs-4\'>\n    ');
+    
+      __out.push(__sanitize(formatter.fix_ask(this.volume)));
+    
+      __out.push('\n  </td>\n  <td class=\'amount text-right col-xs-5\'>\n    ');
+    
+      __out.push(formatter.amount(this.volume, this.price));
+    
+      __out.push('\n  </td>\n  <td class=\'col-xs-3\'></td>\n</tr>\n');
+    
+    }).call(this);
+    
+  }).call(__obj);
+  __obj.safe = __objSafe, __obj.escape = __escape;
+  return __out.join('');
+}:ET

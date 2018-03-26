@@ -1,0 +1,20 @@
+<% unless @one_deadals.empty? %>
+  <div class="panel panel-primary">
+    <div class="panel-heading">
+      <span><%= t('.one') %></span>
+    </div>
+    <%= render partial: 'table', locals: {deadals: @one_deadals} %>
+  </div>
+<% end %>
+<% unless @all_deadals.empty? %>
+  <div class="panel panel-success">
+    <div class="panel-heading">
+      <span><%= t('.all') %></span>
+    </div>
+    <%= render partial: 'table', locals: {deadals: @all_deadals} %>
+  </div>
+<% end %>
+
+<% if @all_deadals.empty? and @one_deadals.empty? %>
+  <h3 class="text-info text-center"><%= t('.empty') %></h3>
+<% end %>

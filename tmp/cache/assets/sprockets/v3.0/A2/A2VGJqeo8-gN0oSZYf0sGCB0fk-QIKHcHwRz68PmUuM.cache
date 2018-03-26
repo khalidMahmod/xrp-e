@@ -1,0 +1,14 @@
+I"(function() {
+  app.config([
+    'ngDialogProvider', function(ngDialogProvider) {
+      return ngDialogProvider.setDefaults({
+        closeByDocument: false,
+        closeByEscape: false,
+        trapFocus: false,
+        cache: false
+      });
+    }
+  ]);
+
+}).call(this);
+:ET

@@ -1,0 +1,21 @@
+default: &default
+  adapter: mysql2
+  encoding: utf8
+  pool: 5
+  host: localhost
+  username: root
+  password:
+
+development:
+  <<: *default
+  database: xrp_e_funds
+
+test:
+  <<: *default
+  database: xrp_e_funds_test
+
+production:
+  <<: *default
+  url: <%= ENV['DATABASE_URL'] %>
+  pool: 10
+  database: xrp_e_funds_prod

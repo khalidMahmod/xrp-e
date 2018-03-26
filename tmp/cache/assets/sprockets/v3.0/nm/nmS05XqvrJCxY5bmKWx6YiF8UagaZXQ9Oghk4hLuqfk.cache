@@ -1,0 +1,97 @@
+I"Ž
+(function() {
+  var Notifier,
+    bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
+
+  Notifier = (function() {
+    function Notifier() {
+      this["switch"] = bind(this["switch"], this);
+      this.checkOrRequirePermission = bind(this.checkOrRequirePermission, this);
+      if (!window.Notification) {
+        this.removeSwitch();
+      }
+      this.getState();
+      this.checkOrRequirePermission();
+      $('input[name="notification-checkbox"]').bootstrapSwitch({
+        labelText: gon.i18n["switch"].notification,
+        state: this.switchOn(),
+        onSwitchChange: this["switch"]
+      });
+    }
+
+    Notifier.prototype.checkOrRequirePermission = function() {
+      if (this.switchOn()) {
+        if (Notification.permission === 'default') {
+          return this.requestPermission(this.checkOrRequirePermission);
+        } else if (Notification.permission === 'denied') {
+          this.setStatus(false);
+          return this.removeSwitch();
+        }
+      }
+    };
+
+    Notifier.prototype.removeSwitch = function() {
+      return $('.desktop-real-notification').remove();
+    };
+
+    Notifier.prototype.setState = function(status) {
+      this.enableNotification = status;
+      return Cookies.set('notification', status, 30);
+    };
+
+    Notifier.prototype.getState = function() {
+      return this.enableNotification = Cookies.get('notification');
+    };
+
+    Notifier.prototype.requestPermission = function(callback) {
+      return Notification.requestPermission(callback);
+    };
+
+    Notifier.prototype["switch"] = function(event, state) {
+      if (state) {
+        this.setState(true);
+        return this.checkOrRequirePermission();
+      } else {
+        return this.setState(false);
+      }
+    };
+
+    Notifier.prototype.switchOn = function() {
+      if (this.getState() === "true") {
+        return true;
+      } else {
+        return false;
+      }
+    };
+
+    Notifier.prototype.notify = function(title, content, logo) {
+      var popup;
+      if (logo == null) {
+        logo = '/peatio-notification-logo.png';
+      }
+      if (this.enableNotification === true || this.enableNotification === "true") {
+        if (window.Notification) {
+          popup = new Notification(title, {
+            'body': content,
+            'onclick': onclick,
+            'icon': logo
+          });
+        } else {
+          popup = window.webkitNotifications.createNotification(avatar, title, content);
+        }
+        return setTimeout(((function(_this) {
+          return function() {
+            return popup.close();
+          };
+        })(this)), 8000);
+      }
+    };
+
+    return Notifier;
+
+  })();
+
+  window.Notifier = Notifier;
+
+}).call(this);
+:ET

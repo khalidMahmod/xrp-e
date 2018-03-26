@@ -1,0 +1,22 @@
+I"Ë(function() {
+  $(document).on('click', '[data-clipboard-text], [data-clipboard-target]', function(e) {
+    var $action;
+    $action = $(this);
+    if ($action.data('clipboard')) {
+      return;
+    }
+    e.preventDefault();
+    e.stopPropagation();
+    $action.data('clipboard', true);
+    new Clipboard($action[0]);
+    return $action.click();
+  });
+
+  setTimeout(function() {
+    return BigNumber.config({
+      ERRORS: false
+    });
+  });
+
+}).call(this);
+:ET

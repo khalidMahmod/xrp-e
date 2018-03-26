@@ -1,0 +1,16 @@
+I"Ê(function() {
+  this.PushButton = flight.component(function() {
+    this.attributes({
+      buttons: '.type-toggle button'
+    });
+    this.setActiveButton = function(event) {
+      this.select('buttons').removeClass('active');
+      return $(event.target).closest('button').addClass('active');
+    };
+    return this.after('initialize', function() {
+      return this.on(this.select('buttons'), 'click', this.setActiveButton);
+    });
+  });
+
+}).call(this);
+:ET

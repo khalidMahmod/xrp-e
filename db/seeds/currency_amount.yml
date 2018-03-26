@@ -1,0 +1,119 @@
+coin_a:
+    name: "Bitcoin"
+    code: "BTC"
+    max_deposit: 0
+    min_deposit: 0
+    max_withdraw: 0
+    min_withdraw: 0
+    deposit_fee: 0
+    withdraw_fee: 0
+
+coin_b:
+    name: "Litecoin"
+    code: "LTC"
+    max_deposit: 0
+    min_deposit: 0
+    max_withdraw: 0
+    min_withdraw: 0
+    deposit_fee: 0
+    withdraw_fee: 0
+
+coin_c:
+    name: "Bitcoin Cash"
+    code: "BCH"
+    max_deposit: 0
+    min_deposit: 0
+    max_withdraw: 0
+    min_withdraw: 0
+    deposit_fee: 0
+    withdraw_fee: 0
+coin_d:
+    name: "Dash"
+    code: "DSH"
+    max_deposit: 0
+    min_deposit: 0
+    max_withdraw: 0
+    min_withdraw: 0
+    deposit_fee: 0
+    withdraw_fee: 0
+coin_e:
+    name: "Ripple"
+    code: "XRP"
+    max_deposit: 0
+    min_deposit: 0
+    max_withdraw: 0
+    min_withdraw: 0
+    min_withdraw: 0
+    deposit_fee: 0
+    withdraw_fee: 0
+coin_f:
+    name: "Stellar"
+    code: "XLM"
+    max_deposit: 0
+    min_deposit: 0
+    max_withdraw: 0
+    min_withdraw: 0
+    min_withdraw: 0
+    deposit_fee: 0
+    withdraw_fee: 0
+coin_g:
+    name: "Tether"
+    code: "usdt"
+    max_deposit: 0
+    min_deposit: 0
+    max_withdraw: 0
+    min_withdraw: 0
+    min_withdraw: 0
+    deposit_fee: 0
+    withdraw_fee: 0
+coin_h:
+    name: "Perfect Money"
+    code: "USD"
+    max_deposit: 0
+    min_deposit: 0
+    max_withdraw: 0
+    min_withdraw: 0
+    min_withdraw: 0
+    deposit_fee: 0
+    withdraw_fee: 0
+coin_i:
+    name: "OKPAY"
+    code: "USD"
+    max_deposit: 0
+    min_deposit: 0
+    max_withdraw: 0
+    min_withdraw: 0
+    min_withdraw: 0
+    deposit_fee: 0
+    withdraw_fee: 0
+coin_j:
+    name: "ADvcash"
+    code: "USD"
+    max_deposit: 0
+    min_deposit: 0
+    max_withdraw: 0
+    min_withdraw: 0
+    min_withdraw: 0
+    deposit_fee: 0
+    withdraw_fee: 0
+coin_k:
+    name: "FasaPay"
+    code: "USD"
+    max_deposit: 0
+    min_deposit: 0
+    max_withdraw: 0
+    min_withdraw: 0
+    min_withdraw: 0
+    deposit_fee: 0
+    withdraw_fee: 0
+coin_l:
+    name: "EPAY"
+    code: "USD"
+    max_deposit: 0
+    min_deposit: 0
+    max_withdraw: 0
+    min_withdraw: 0
+    min_withdraw: 0
+    deposit_fee: 0
+    withdraw_fee: 0
+

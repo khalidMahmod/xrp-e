@@ -1,0 +1,62 @@
+I"è(function() {
+  var Account,
+    extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+    hasProp = {}.hasOwnProperty;
+
+  Account = (function(superClass) {
+    extend(Account, superClass);
+
+    function Account() {
+      return Account.__super__.constructor.apply(this, arguments);
+    }
+
+    Account.configure('Account', 'member_id', 'currency', 'balance', 'locked', 'created_at', 'updated_at', 'in', 'out', 'deposit_address', 'name_text');
+
+    Account.initData = function(records) {
+      return PeatioModel.Ajax.disable(function() {
+        return $.each(records, function(idx, record) {
+          return Account.create(record);
+        });
+      });
+    };
+
+    Account.prototype.deposit_channels = function() {
+      return DepositChannel.findAllBy('currency', this.currency);
+    };
+
+    Account.prototype.withdraw_channels = function() {
+      return WithdrawChannel.findAllBy('currency', this.currency);
+    };
+
+    Account.prototype.deposit_channel = function() {
+      return DepositChannel.findBy('currency', this.currency);
+    };
+
+    Account.prototype.deposits = function() {
+      return _.sortBy(Deposit.findAllBy('account_id', this.id), function(d) {
+        return d.id;
+      }).reverse();
+    };
+
+    Account.prototype.withdraws = function() {
+      return _.sortBy(Withdraw.findAllBy('account_id', this.id), function(d) {
+        return d.id;
+      }).reverse();
+    };
+
+    Account.prototype.topDeposits = function() {
+      return this.deposits().reverse().slice(0, 3);
+    };
+
+    Account.prototype.topWithdraws = function() {
+      return this.withdraws().reverse().slice(0, 3);
+    };
+
+    return Account;
+
+  })(PeatioModel.Model);
+
+  window.Account = Account;
+
+}).call(this);
+:ET

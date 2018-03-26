@@ -1,0 +1,104 @@
+- id: btcusd
+  code: 1
+  base_unit: btc
+  quote_unit: usd
+  sort_order: 1
+  bid: { fee: 0.002, currency: usd, fixed: 2 }
+  ask: { fee: 0.002, currency: btc, fixed: 4 }
+
+- id: bchusd
+  code: 2
+  base_unit: bch
+  quote_unit: usd
+  sort_order: 1
+  bid: { fee: 0.002, currency: usd, fixed: 2 }
+  ask: { fee: 0.002, currency: bch, fixed: 4 }
+
+- id: ltcusd
+  code: 3
+  base_unit: ltc
+  quote_unit: usd
+  sort_order: 1
+  bid: { fee: 0.002, currency: usd, fixed: 2 }
+  ask: { fee: 0.002, currency: ltc, fixed: 4 }
+
+- id: dshusd
+  code: 4
+  base_unit: dsh
+  quote_unit: usd
+  sort_order: 1
+  bid: { fee: 0.002, currency: usd, fixed: 2 }
+  ask: { fee: 0.002, currency: dsh, fixed: 4 }
+
+  # default name
+  # name: BTC/CNY
+
+  # aggregate price levels in orderbook
+  # price_group_fixed: 1
+
+  # default is true
+  # visible: false
+
+- id: xrpusd
+  code: 5
+  base_unit: xrp
+  quote_unit: usd
+  sort_order: 1
+  bid: { fee: 0.002, currency: usd, fixed: 2 }
+  ask: { fee: 0.002, currency: xrp, fixed: 3 }
+
+- id: xlmusd
+  code: 6
+  base_unit: xlm
+  quote_unit: usd
+  sort_order: 1
+  bid: { fee: 0.002, currency: usd, fixed: 3 }
+  ask: { fee: 0.002, currency: xlm, fixed: 4 }
+
+- id: usdusdt
+  code: 7
+  base_unit: usd
+  quote_unit: usdt
+  sort_order: 1
+  bid: { fee: 0.002, currency: usdt, fixed: 3 }
+  ask: { fee: 0.002, currency: usd, fixed: 4 }
+
+- id: bchbtc
+  code: 8
+  base_unit: bch
+  quote_unit: btc
+  sort_order: 1
+  bid: { fee: 0.002, currency: btc, fixed: 3 }
+  ask: { fee: 0.002, currency: bch, fixed: 4 }
+
+- id: ltcbtc
+  code: 9
+  base_unit: ltc
+  quote_unit: btc
+  sort_order: 1
+  bid: { fee: 0.002, currency: btc, fixed: 3 }
+  ask: { fee: 0.002, currency:  ltc, fixed: 4 }
+
+- id: dshbtc
+  code: 10
+  base_unit: dsh
+  quote_unit: btc
+  sort_order: 1
+  bid: { fee: 0.002, currency: btc, fixed: 3 }
+  ask: { fee: 0.002, currency: dsh, fixed: 4 }
+
+- id: xrpbtc
+  code: 11
+  base_unit: xrp
+  quote_unit: btc
+  sort_order: 1
+  bid: { fee: 0.002, currency: btc, fixed: 3 }
+  ask: { fee: 0.002, currency: xrp, fixed: 4 }
+
+- id: xlmbtc
+  code: 12
+  base_unit: xlm
+  quote_unit: btc
+  sort_order: 1
+  bid: { fee: 0.002, currency: btc, fixed: 3 }
+  ask: { fee: 0.002, currency: xlm, fixed: 4 }

@@ -1,0 +1,49 @@
+I"(function() {
+  this.ItemListMixin = function() {
+    this.attributes({
+      tbody: 'table > tbody',
+      empty: '.empty-row'
+    });
+    this.checkEmpty = function(event, data) {
+      if (this.select('tbody').find('tr.order').length === 0) {
+        return this.select('empty').fadeIn();
+      } else {
+        return this.select('empty').fadeOut();
+      }
+    };
+    this.addOrUpdateItem = function(item) {
+      var existsItem, template;
+      template = this.getTemplate(item);
+      existsItem = this.select('tbody').find("tr[data-id=" + item.id + "][data-kind=" + item.kind + "]");
+      if (existsItem.length) {
+        existsItem.html(template.html());
+      } else {
+        template.prependTo(this.select('tbody')).show('slow');
+      }
+      return this.checkEmpty();
+    };
+    this.removeItem = function(id) {
+      var item;
+      item = this.select('tbody').find("tr[data-id=" + id + "]");
+      return item.hide('slow', (function(_this) {
+        return function() {
+          item.remove();
+          return _this.checkEmpty();
+        };
+      })(this));
+    };
+    return this.populate = function(event, data) {
+      var i, item, len, ref;
+      if (!_.isEmpty(data.orders)) {
+        ref = data.orders;
+        for (i = 0, len = ref.length; i < len; i++) {
+          item = ref[i];
+          this.addOrUpdateItem(item);
+        }
+      }
+      return this.checkEmpty();
+    };
+  };
+
+}).call(this);
+:ET

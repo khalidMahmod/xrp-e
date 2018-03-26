@@ -1,0 +1,22 @@
+I"â(function() {
+  app.service('accountService', [
+    '$filter', '$gon', function($filter, $gon) {
+      return {
+        filterBy: function(filter) {
+          return $filter('filter')($gon.accounts, filter);
+        },
+        findBy: function(filter) {
+          var result;
+          result = this.filterBy(filter);
+          if (result.length) {
+            return result[0];
+          } else {
+            return null;
+          }
+        }
+      };
+    }
+  ]);
+
+}).call(this);
+:ET

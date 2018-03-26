@@ -1,0 +1,112 @@
+I"É(function() {
+  app.controller('WithdrawsController', [
+    '$scope', '$stateParams', '$http', '$gon', 'fundSourceService', 'ngDialog', function($scope, $stateParams, $http, $gon, fundSourceService, ngDialog) {
+      var _selectedFundSourceId, _selectedFundSourceIdInList, currency, current_user, defaultFundSource, fund_sources;
+      _selectedFundSourceId = null;
+      _selectedFundSourceIdInList = function(list) {
+        var fs, i, len;
+        for (i = 0, len = list.length; i < len; i++) {
+          fs = list[i];
+          if (fs.id === _selectedFundSourceId) {
+            return true;
+          }
+        }
+        return false;
+      };
+      $scope.currency = currency = $stateParams.currency;
+      $scope.current_user = current_user = $gon.user;
+      $scope.name = current_user.name;
+      $scope.account = Account.findBy('currency', $scope.currency);
+      $scope.balance = $scope.account.balance;
+      $scope.withdraw_channel = WithdrawChannel.findBy('currency', $scope.currency);
+      $scope.selected_fund_source_id = function(newId) {
+        if (angular.isDefined(newId)) {
+          return _selectedFundSourceId = newId;
+        } else {
+          return _selectedFundSourceId;
+        }
+      };
+      $scope.fund_sources = function() {
+        var fund_sources;
+        fund_sources = fundSourceService.filterBy({
+          currency: currency
+        });
+        if (!_selectedFundSourceId || !_selectedFundSourceIdInList(fund_sources)) {
+          if (fund_sources.length) {
+            $scope.selected_fund_source_id(fund_sources[0].id);
+          }
+        }
+        return fund_sources;
+      };
+      defaultFundSource = fundSourceService.defaultFundSource({
+        currency: currency
+      });
+      if (defaultFundSource) {
+        _selectedFundSourceId = defaultFundSource.id;
+      } else {
+        fund_sources = $scope.fund_sources();
+        if (fund_sources.length) {
+          _selectedFundSourceId = fund_sources[0].id;
+        }
+      }
+      $scope.$watch(function() {
+        return fundSourceService.defaultFundSource({
+          currency: currency
+        });
+      }, function(defaultFundSource) {
+        if (defaultFundSource) {
+          return $scope.selected_fund_source_id(defaultFundSource.id);
+        }
+      });
+      this.withdraw = {};
+      this.createWithdraw = function(currency) {
+        var account, data, withdraw_channel;
+        withdraw_channel = WithdrawChannel.findBy('currency', currency);
+        account = withdraw_channel.account();
+        data = {
+          withdraw: {
+            member_id: current_user.id,
+            currency: currency,
+            sum: this.withdraw.sum,
+            fund_source: _selectedFundSourceId
+          }
+        };
+        $('.form-submit > input').attr('disabled', 'disabled');
+        return $http.post("/withdraws/" + withdraw_channel.resource_name, data).error(function(responseText) {
+          return $.publish('flash', {
+            message: responseText
+          });
+        })["finally"]((function(_this) {
+          return function() {
+            _this.withdraw = {};
+            $('.form-submit > input').removeAttr('disabled');
+            return $.publish('withdraw:form:submitted');
+          };
+        })(this));
+      };
+      this.withdrawAll = function() {
+        return this.withdraw.sum = Number($scope.account.balance);
+      };
+      return $scope.openFundSourceManagerPanel = function() {
+        var className, template;
+        if ($scope.currency === $gon.fiat_currency) {
+          template = '/templates/fund_sources/bank.html';
+          className = 'ngdialog-theme-default custom-width';
+        } else {
+          template = '/templates/fund_sources/coin.html';
+          className = 'ngdialog-theme-default custom-width coin';
+        }
+        return ngDialog.open({
+          template: template,
+          controller: 'FundSourcesController',
+          className: className,
+          data: {
+            currency: $scope.currency
+          }
+        });
+      };
+    }
+  ]);
+
+}).call(this);
+:ET

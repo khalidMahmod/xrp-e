@@ -1,0 +1,46 @@
+I"×(function() {
+  this.HeaderUI = flight.component(function() {
+    this.attributes({
+      vol: 'span.vol',
+      amount: 'span.amount',
+      high: 'span.high',
+      low: 'span.low',
+      change: 'span.change',
+      sound: 'input[name="sound-checkbox"]'
+    });
+    this.refresh = function(event, ticker) {
+      var p1, p2, trend;
+      this.select('vol').text(ticker.volume + " " + (gon.market.base_unit.toUpperCase()));
+      this.select('high').text(ticker.high);
+      this.select('low').text(ticker.low);
+      p1 = parseFloat(ticker.open);
+      p2 = parseFloat(ticker.last);
+      trend = formatter.trend(p1 <= p2);
+      return this.select('change').html("<span class='" + trend + "'>" + (formatter.price_change(p1, p2)) + "%</span>");
+    };
+    return this.after('initialize', function() {
+      var ref, state;
+      this.on(document, 'market::ticker', this.refresh);
+      if (Cookies.get('sound') === void 0) {
+        Cookies.set('sound', true, 30);
+      }
+      state = (ref = Cookies.get('sound') === 'true') != null ? ref : {
+        "true": false
+      };
+      this.select('sound').bootstrapSwitch({
+        labelText: gon.i18n["switch"].sound,
+        state: state,
+        handleWidth: 40,
+        labelWidth: 40,
+        onSwitchChange: function(event, state) {
+          return Cookies.set('sound', state, 30);
+        }
+      });
+      return $('header .dropdown-menu').click(function(e) {
+        return e.stopPropagation();
+      });
+    });
+  });
+
+}).call(this);
+:ET

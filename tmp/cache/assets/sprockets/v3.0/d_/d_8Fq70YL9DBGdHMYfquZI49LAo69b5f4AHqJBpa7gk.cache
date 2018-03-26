@@ -1,0 +1,24 @@
+I"ÿ(function() {
+  var ESC;
+
+  ESC = 27;
+
+  this.KeyBindUI = flight.component(function() {
+    return this.after('initialize', function() {
+      var entry;
+      entry = '#ask_entry';
+      return this.$node.on('keyup', function(e) {
+        if (e.keyCode === ESC) {
+          if (entry === '#bid_entry') {
+            entry = '#ask_entry';
+          } else {
+            entry = '#bid_entry';
+          }
+          return $(entry).trigger('place_order::clear');
+        }
+      });
+    });
+  });
+
+}).call(this);
+:ET

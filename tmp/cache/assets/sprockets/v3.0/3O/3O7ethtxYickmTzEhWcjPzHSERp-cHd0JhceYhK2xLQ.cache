@@ -1,0 +1,31 @@
+I"¦(function() {
+  $(window).load(function() {
+    $.subscribe('deposit_address:create', function(event, data) {
+      var code;
+      code = data ? data : $('#deposit_address').html();
+      $("#qrcode").attr('data-text', code);
+      $("#qrcode").attr('title', code);
+      return $('.qrcode-container').each(function(index, el) {
+        var $el;
+        $el = $(el);
+        $("#qrcode img").remove();
+        $("#qrcode canvas").remove();
+        return new QRCode(el, {
+          text: $("#qrcode").attr('data-text'),
+          width: $el.data('width'),
+          height: $el.data('height')
+        });
+      });
+    });
+    $.publish('deposit_address:create');
+    return $.subscribe('flash', function(event, data) {
+      $('.flash-messages').show();
+      $('#flash-content').html(data.message);
+      return setTimeout(function() {
+        return $('.flash-messages').hide(1000);
+      }, 10000);
+    });
+  });
+
+}).call(this);
+:ET

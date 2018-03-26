@@ -1,0 +1,11 @@
+I"(function() {
+  this.NotificationMixin = function() {
+    return this.notify = function(body, title) {
+      var notification;
+      title || (title = gon.i18n.notification.title);
+      return notification = notifier.notify(title, body);
+    };
+  };
+
+}).call(this);
+:ET

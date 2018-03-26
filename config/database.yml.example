@@ -1,0 +1,21 @@
+default: &default
+  adapter: mysql2
+  encoding: utf8
+  pool: 5
+  host: localhost
+  username: root
+  password: asd
+
+development:
+  <<: *default
+  database: peatio_develop
+
+test:
+  <<: *default
+  database: peatio_testdatabase
+
+production:
+  <<: *default
+  url: <%= ENV['DATABASE_URL'] %>
+  pool: 10
+  database: peatio_production

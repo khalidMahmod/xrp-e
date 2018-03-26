@@ -1,0 +1,54 @@
+<div class="panel panel-primary">
+    <div class="box-header with-border">
+    </div>
+    <%= form_for [:admin, @currency_amount], :html => { class: "form-horizontal organization" } do |f| %>
+        <div class="box-body">
+          <div class="form-group heading">
+            <h1 class="edit-fees-header"><%= f.label @currency_amount.name, class: "col-sm-4 control-label alignment"%></h1>
+          </div>
+          <div class="form-group ">
+            <%= f.label :deposit_fee,'Deposit Fee %', class: "col-sm-4 control-label alignment"  %>
+            <div class="col-sm-4" >
+              <%= f.text_field :deposit_fee, class: 'form-control', :required => true %>
+            </div>
+          </div>
+          <div class="form-group">
+            <%= f.label :withdraw_fee,'Withdraw Fee %', class: "col-sm-4 control-label alignment"  %>
+            <div class="col-sm-4" >
+              <%= f.text_field :withdraw_fee, class: 'form-control', :required => true %>
+            </div>
+          </div>
+          <div class="form-group">
+            <%= f.label :min_deposit, class: "col-sm-4 control-label alignment"%>
+            <div class="col-sm-4">
+              <%= f.text_field :min_deposit, class: 'form-control', :required => true %>
+            </div>
+          </div>
+          <div class="form-group">
+            <%= f.label :max_deposit, class: "col-sm-4 control-label alignment"  %>
+            <div class="col-sm-4">
+              <%= f.text_field :max_deposit, class: 'form-control', :required => true %>
+            </div>
+          </div>
+          <div class="form-group">
+            <%= f.label :min_withdraw, class: "col-sm-4 control-label alignment" %>
+            <div class="col-sm-4">
+              <%= f.text_field :min_withdraw, class: 'form-control', :required => true %>
+            </div>
+          </div>
+          <div class="form-group">
+            <%= f.label :max_withdraw, class: "col-sm-4 control-label alignment"  %>
+            <div class="col-sm-4">
+              <%= f.text_field :max_withdraw, class:'form-control', :required => true %>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-sm-4 control-label alignment">
+          <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                      admin_currency_amounts_path, class: 'btn btn-danger ' %>
+          <%= f.submit 'Save', class: 'btn btn-primary' %>
+        </div>
+        </div>
+    <% end %>
+</div>

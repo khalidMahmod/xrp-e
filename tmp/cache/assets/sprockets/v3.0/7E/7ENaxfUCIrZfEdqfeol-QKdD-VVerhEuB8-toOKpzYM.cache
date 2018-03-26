@@ -1,0 +1,52 @@
+I"�(function() {
+  var f, render;
+
+  Highcharts.setOptions({
+    global: {
+      useUTC: false
+    }
+  });
+
+  if (gon.local === "zh-CN") {
+    Highcharts.setOptions({
+      lang: {
+        months: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'],
+        shortMonths: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'],
+        weekdays: ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六']
+      }
+    });
+  }
+
+  render = Highcharts.RangeSelector.prototype.render;
+
+  Highcharts.RangeSelector.prototype.render = function(min, max) {
+    var button, i, leftPosition, len, ref, results, space, topPosition;
+    render.apply(this, [min, max]);
+    leftPosition = this.chart.plotLeft;
+    topPosition = this.chart.plotTop;
+    space = 10;
+    this.zoomText.attr({
+      x: leftPosition + 2,
+      y: topPosition + 15,
+      text: gon.i18n.chart.zoom
+    });
+    leftPosition += this.zoomText.getBBox().width + 15;
+    ref = this.buttons;
+    results = [];
+    for (i = 0, len = ref.length; i < len; i++) {
+      button = ref[i];
+      button.attr({
+        x: leftPosition,
+        y: topPosition
+      });
+      results.push(leftPosition += button.width + space);
+    }
+    return results;
+  };
+
+  f = function(callback) {};
+
+  Highcharts.wrap(Highcharts.Tooltip.prototype, 'hide', f);
+
+}).call(this);
+:ET

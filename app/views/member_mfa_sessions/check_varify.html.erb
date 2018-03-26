@@ -1,0 +1,21 @@
+<div class="container">
+  <div class="row">
+    <div class="verify_2fa">
+      <% if flash[:error] %>
+        <div class="alert alert-danger">
+          <%=  flash[:error] %>
+        </div>
+      <% end %>
+      <%= form_tag member_mfa_session_verify_path, method: :post do %>
+          <div class="actions">
+            <h2>TWO-FACTOR AUTHENTICATION</h2>
+            <p>Please enter the code shown on Google Authenticator, the code will refresh every <span style="color: red">30 seconds.</span></p>
+            <%= text_field :auth, :mfa_code , placeholder: "Code*" , class: "form-control" %>
+            <br>
+            <%=  submit_tag 'Verify', class: "btn btn-primary form-control"%>
+          </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+

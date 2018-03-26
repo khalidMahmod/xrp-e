@@ -1,0 +1,134 @@
+<div class="tabbable">
+  <ul class="nav nav-tabs">
+    <li class="active">
+      <a class="btc-proof" href="#btc-proof" data-toggle="tab"><%= t('.verify-btc').html_safe %></a>
+    </li>
+    <li>
+      <a class="xrp-proof" href="#xrp-proof" data-toggle="tab"><%= t('.verify-xrp').html_safe %></a>
+    </li>
+    <li>
+      <a class="usd-proof" href="#usd-proof" data-toggle="tab"><%= t('.verify-usd').html_safe %></a>
+    </li>
+    <li>
+      <a class="ltc-proof" href="#ltc-proof" data-toggle="tab"><%= t('.verify-ltc').html_safe %></a>
+    </li>
+    <li>
+      <a class="bch-proof" href="#bch-proof" data-toggle="tab"><%= t('.verify-bch').html_safe %></a>
+    </li>
+    <li>
+      <a class="dsh-proof" href="#dsh-proof" data-toggle="tab"><%= t('.verify-dsh').html_safe %></a>
+    </li>
+    <li>
+      <a class="xlm-proof" href="#xlm-proof" data-toggle="tab"><%= t('.verify-xlm').html_safe %></a>
+    </li>
+    <li>
+      <a class="usdt-proof" href="#usdt-proof" data-toggle="tab"><%= t('.verify-usdt').html_safe %></a>
+    </li>
+  </ul>
+
+  <div class="tab-content">
+    <div id="btc-proof" class="tab-pane active">
+      <div class="trade-wrapper">
+        <div class="assets">
+          <span class="title"><%= t('.btc-assets-total').html_safe %></span>
+          <span class="currency">
+            <%= t('currency.icon.btc').html_safe %>
+            <%= @btc_proof.sum %>
+          </span>
+        </div>
+        <%= render 'liability_data', account: @btc_account, proof: @btc_proof %>
+      </div>
+    </div>
+
+    <div id="xrp-proof" class="tab-pane active">
+      <div class="trade-wrapper">
+        <div class="assets">
+          <span class="title"><%= t('.xrp-assets-total').html_safe %></span>
+          <span class="currency">
+            <%= t('currency.icon.xrp').html_safe %>
+            <%= @xrp_proof.sum %>
+          </span>
+        </div>
+        <%= render 'liability_data', account: @xrp_account, proof: @xrp_proof %>
+      </div>
+    </div>
+
+    <div id="usd-proof" class="tab-pane">
+      <div class="trade-wrapper">
+        <div class="assets">
+          <span class="title"><%= t('.usd-assets-total').html_safe %></span>
+          <span class="currency">
+            <%= t('currency.icon.usd').html_safe %>
+            <%= @usd_proof.sum %>
+          </span>
+        </div>
+        <%= render 'liability_data', account: @usd_account, proof: @usd_proof %>
+      </div>
+    </div>
+
+    <div id="ltc-proof" class="tab-pane active">
+      <div class="trade-wrapper">
+        <div class="assets">
+          <span class="title"><%= t('.ltc-assets-total').html_safe %></span>
+          <span class="currency">
+            <%= t('currency.icon.ltc').html_safe %>
+            <%= @ltc_proof.sum %>
+          </span>
+        </div>
+        <%= render 'liability_data', account: @ltc_account, proof: @ltc_proof %>
+      </div>
+    </div>
+
+    <div id="bch-proof" class="tab-pane active">
+      <div class="trade-wrapper">
+        <div class="assets">
+          <span class="title"><%= t('.bch-assets-total').html_safe %></span>
+          <span class="currency">
+            <%= t('currency.icon.bch').html_safe %>
+            <%= @bch_proof.sum %>
+          </span>
+        </div>
+        <%= render 'liability_data', account: @bch_account, proof: @bch_proof %>
+      </div>
+    </div>
+
+    <div id="dsh-proof" class="tab-pane active">
+      <div class="trade-wrapper">
+        <div class="assets">
+          <span class="title"><%= t('.dsh-assets-total').html_safe %></span>
+          <span class="currency">
+            <%= t('currency.icon.dsh').html_safe %>
+            <%= @dsh_proof.sum %>
+          </span>
+        </div>
+        <%= render 'liability_data', account: @dsh_account, proof: @dsh_proof %>
+      </div>
+    </div>
+
+    <div id="xlm-proof" class="tab-pane active">
+      <div class="trade-wrapper">
+        <div class="assets">
+          <span class="title"><%= t('.xlm-assets-total').html_safe %></span>
+          <span class="currency">
+            <%= t('currency.icon.xlm').html_safe %>
+            <%= @xlm_proof.sum %>
+          </span>
+        </div>
+        <%= render 'liability_data', account: @xlm_account, proof: @xlm_proof %>
+      </div>
+    </div>
+
+    <div id="usdt-proof" class="tab-pane active">
+      <div class="trade-wrapper">
+        <div class="assets">
+          <span class="title"><%= t('.usdt-assets-total').html_safe %></span>
+          <span class="currency">
+            <%= t('currency.icon.usdt').html_safe %>
+            <%= @usdt_proof.sum %>
+          </span>
+        </div>
+        <%= render 'liability_data', account: @usdt_account, proof: @usdt_proof %>
+      </div>
+    </div>
+  </div>
+</div>

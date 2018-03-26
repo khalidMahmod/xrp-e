@@ -1,0 +1,81 @@
+I"	(function() {
+  app.service('fundSourceService', [
+    '$filter', '$gon', '$resource', 'accountService', function($filter, $gon, $resource, accountService) {
+      var resource;
+      resource = $resource('/fund_sources/:id', {
+        id: '@id'
+      }, {
+        update: {
+          method: 'PUT'
+        }
+      });
+      return {
+        filterBy: function(filter) {
+          return $filter('filter')($gon.fund_sources, filter);
+        },
+        findBy: function(filter) {
+          var result;
+          result = this.filterBy(filter);
+          if (result.length) {
+            return result[0];
+          } else {
+            return null;
+          }
+        },
+        defaultFundSource: function(filter) {
+          var account;
+          account = accountService.findBy(filter);
+          if (!account) {
+            return null;
+          }
+          return this.findBy({
+            id: account.default_withdraw_fund_source_id
+          });
+        },
+        create: function(data, afterCreate) {
+          return resource.save(data, (function(_this) {
+            return function(fund_source) {
+              $gon.fund_sources.push(fund_source);
+              if (afterCreate) {
+                return afterCreate(fund_source);
+              }
+            };
+          })(this));
+        },
+        update: function(fund_source, afterUpdate) {
+          var account;
+          account = accountService.findBy({
+            currency: fund_source.currency
+          });
+          if (!account) {
+            return null;
+          }
+          account.default_withdraw_fund_source_id = fund_source.id;
+          return resource.update({
+            id: fund_source.id
+          }, (function(_this) {
+            return function() {
+              if (afterUpdate) {
+                return afterUpdate();
+              }
+            };
+          })(this));
+        },
+        remove: function(fund_source, afterRemove) {
+          return resource.remove({
+            id: fund_source.id
+          }, (function(_this) {
+            return function() {
+              $gon.fund_sources.splice($gon.fund_sources.indexOf(fund_source), 1);
+              if (afterRemove) {
+                return afterRemove();
+              }
+            };
+          })(this));
+        }
+      };
+    }
+  ]);
+
+}).call(this);
+:ET

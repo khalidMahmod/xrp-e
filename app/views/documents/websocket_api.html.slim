@@ -1,0 +1,146 @@
+.jumbotron
+  h2 WebSocket Data Interface (WebSocket API)
+  small Interface URI: wss://demo.xrp-e.tech:8080
+  br
+  small Return result format: JSON
+
+.panel.panel-default
+  .panel-heading
+    h3.api_header WebSocket API
+
+  .panel-body
+    p WebSocket API for developers to provide a more real-time data channel. Server can push changes to orderbook and market transaction data to WebSocket API users in real time through websocket long connection.
+    p Using the WebSocket API can be divided into three simple steps:
+    ol
+      li 1. Create a websocket connection.
+      li 2. Use api token to authenticate.
+      li 3. Receive and process the data.
+
+.panel.panel-default
+  .panel-heading
+    h3.api_header Establish a connection websocket
+
+  .panel-body
+    p WebSocket is a wide range of standard applications, support various language has its own library. To Javascript, for example:
+    p Javascript:
+    pre: code
+      | var host = 'wss://demo.peatio.tech:8080';
+        var socket = new WebSocket(host);
+        socket.onopen = function() {
+          console.log("opened");
+        }
+
+        socket.onmessage = function(msg) {
+          console.log(msg);
+        }
+
+        socket.onclose = function() {
+          console.log("closed");
+        }
+    p
+      | You can also refer to the official Ruby client implementation:  https://github.com/peatio/peatio-client-ruby/blob/master/lib/peatio_api/streaming_client.rb;
+      a href='https://github.com/peatio/peatio-client-ruby/blob/master/lib/peatio_api/streaming_client.rb'
+        | https://github.com/peatio/peatio-client-ruby/blob/master/lib/peatio_api/streaming_client.rb
+
+
+.panel.panel-default
+  .panel-heading
+    h3.api_header Use api token to verify identity
+
+  .panel-body
+    p Before you can verify your identity, you must have your access / secret key in place. After registration and authentication, you can get your key by simply visiting the API Key page.
+    p After you set up a WebSocket connection with your server from the previous step, the server returns a challenge message of the form:
+    pre: code
+      | {"challenge":"d45sSFIZZdYzRgwi-zDqA8HFP2MfVoWqXlHX-2LbB_37q9_3pkZ8og"}
+    p challengechallenge contains a randomly generated string, the client needs to use the access / secret key to sign the string, and then the signature back to the server, the server to verify the signature, the correct continue to the next step, or return an error message.
+    p Signature generation is very simple, first of all your access key and challenge string connection:
+    pre: code
+      | payload = access_key + challenge
+    p Assuming that the access key is "abc" and the challenge is "def," the payload is "abcdef." Next, use HMAC-SHA256 with the secret key to calculate the payload signature:
+    pre: code
+      | signature = HMAC-SHA256(secret_key, payload).to_hex
+    p Assuming that secret_key is 'ghi', the result of signing the payload in HMAC-SHA256 is:
+    pre: code
+      | signature = HMAC-SHA256('ghi', 'abcdef').to_hex
+                  = '52ca0e5beab532532c62155e78d81c7dc8ad6d6f744cf3797668cf52dd2f9a41'
+    p Now we only need to send the signature back to the server in the following format:
+    pre: code
+      | {auth: {access_key: 'your_access_key', answer: 'the_signature'}}
+    p
+      | For more information, refer to the official Ruby client implementation: &nbsp;
+      a href='https://github.com/peatio/peatio-client-ruby/blob/master/lib/peatio_api/streaming_client.rb'
+        | https://github.com/peatio/peatio-client-ruby/blob/master/lib/peatio_api/streaming_client.rb
+
+.panel.panel-default
+  .panel-heading
+    h3.api_header Accept the data
+
+  .panel-body
+    p Real-time data sent by the server can be accepted after the authentication is passed.At present, there are two types of real-time data provided by the WebSocket API: Trade and Orderbook. The detailed data format is as follows:
+    table.table.result
+      thead
+        tr
+          th type of data
+          th Data Structure / Examples
+          th Remarks
+      tbody
+        tr
+          td Trade
+          td: pre: code
+            | { "trade"=>
+                  { "id"=>2435,
+                    "price"=>"3500.0",
+                    "volume"=>"0.0331",
+                    "funds"=>"115.85",
+                    "market"=>"btcusd",
+                    "created_at"=>"2014-06-16T05:02:37Z",
+                    "side"=>"bid",
+                    "bid"=>{
+                      "id"=>3248, "side"=>"buy", "price"=>nil,
+                      "avg_price"=>"3500.0", "state"=>"done", "market"=>"btcusd",
+                      "created_at"=>"2014-06-16T05:02:37Z", "volume"=>"0.0331",
+                      "remaining_volume"=>"0.0", "executed_volume"=>"0.0331"
+                    }
+                  }
+              }
+          td
+            p The Trade message has a new deal on your pending order.
+            p price / volume: transaction price / transaction volume
+            p funds: Turnover (in quoted currency)
+            p market: base currency / quote currency pair
+            p side: your role in the deal (ask: seller, bid: buyer)
+            p ask or bid: the pending order data
+        tr
+          td Orderbook
+          td: pre: code
+            | { "orderbook"=>
+                { "action"=>"add",
+                  "order"=>{
+                    "id"=>3252,
+                    "timestamp"=>1402898864,
+                    "type"=>"ask",
+                    "volume"=>"1.0",
+                    "price"=>"3500.0",
+                    "market"=>"btcusd",
+                    "ord_type"=>"limit"}
+                }
+              }
+          td style='width: 350px'
+            p Orderbook news on behalf of the orderbook has changed.
+            p Orderbook The Orderbook add message ("action" => "add") indicates that a new order is added to the orderbook.
+            p The Orderbook remove message ("action" => "remove") indicates that the orderbook removed the order (probably because the user canceled the pending order or the pending order was fully placed).
+            p The Orderbook update message ("action" => "update") indicates that the order in the orderbook has been updated.
+            p action: orderbook operation, the range of values: add, remove, update.
+            p order: order to be operated
+
+.panel.panel-default
+  .panel-heading
+    h3.api_header Related Libraries / Tools List
+
+  .panel-body
+    ul
+      li: h4
+        a href='http://github.com/peatio/peatio-client-ruby'
+          | xrp-e-client-ruby (ruby)
+.row
+  #swagger-ui-container.swagger-ui-wrap

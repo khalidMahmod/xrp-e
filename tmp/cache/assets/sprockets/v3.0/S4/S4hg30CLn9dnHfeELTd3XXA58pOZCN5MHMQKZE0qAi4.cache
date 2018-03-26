@@ -1,0 +1,43 @@
+I"1(function() {
+  this.MyOrdersUI = flight.component(function() {
+    flight.compose.mixin(this, [ItemListMixin]);
+    this.getTemplate = function(order) {
+      return $(JST["templates/order_active"](order));
+    };
+    this.orderHandler = function(event, order) {
+      if (order.market !== gon.market.id) {
+        return;
+      }
+      switch (order.state) {
+        case 'wait':
+          return this.addOrUpdateItem(order);
+        case 'cancel':
+          return this.removeItem(order.id);
+        case 'done':
+          return this.removeItem(order.id);
+      }
+    };
+    this.cancelOrder = function(event) {
+      var tr;
+      tr = $(event.target).parents('tr');
+      if (confirm(formatter.t('place_order')['confirm_cancel'])) {
+        return $.ajax({
+          url: formatter.market_url(gon.market.id, tr.data('id')),
+          method: 'delete',
+          success: (function(_this) {
+            return function() {
+              return location.reload();
+            };
+          })(this)
+        });
+      }
+    };
+    return this.after('initialize', function() {
+      this.on(document, 'order::wait::populate', this.populate);
+      this.on(document, 'order::wait order::cancel order::done', this.orderHandler);
+      return this.on(this.select('tbody'), 'click', this.cancelOrder);
+    });
+  });
+
+}).call(this);
+:ET

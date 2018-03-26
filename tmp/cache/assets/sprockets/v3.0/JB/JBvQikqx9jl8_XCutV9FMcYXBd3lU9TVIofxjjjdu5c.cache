@@ -1,0 +1,53 @@
+I"	(function() {
+  var BORDER_WIDTH, GUTTER, PANEL_PADDING, PANEL_TABLE_HEADER_HIGH;
+
+  GUTTER = 2;
+
+  PANEL_TABLE_HEADER_HIGH = 37;
+
+  PANEL_PADDING = 8;
+
+  BORDER_WIDTH = 1;
+
+  this.AutoWindowUI = flight.component(function() {
+    return this.after('initialize', function() {
+      var gutter, gutter_2x, gutter_3x, gutter_4x, gutter_5x, gutter_6x, gutter_7x, gutter_8x, gutter_9x, panel_table_header_high;
+      gutter = GUTTER;
+      gutter_2x = GUTTER * 2;
+      gutter_3x = GUTTER * 3;
+      gutter_4x = GUTTER * 4;
+      gutter_5x = GUTTER * 5;
+      gutter_6x = GUTTER * 6;
+      gutter_7x = GUTTER * 7;
+      gutter_8x = GUTTER * 8;
+      gutter_9x = GUTTER * 9;
+      panel_table_header_high = PANEL_TABLE_HEADER_HIGH;
+      this.$node.resize(function() {
+        var depths_h, entry_h, markets_h, markets_w, my_orders_h, navbar_h, order_book_w, order_h, ticker_h, trades_h, window_h, window_w;
+        navbar_h = $('.navbar').height() + BORDER_WIDTH;
+        markets_h = $('#market_list').height() + BORDER_WIDTH;
+        entry_h = $('#ask_entry').height() + 2 * BORDER_WIDTH;
+        depths_h = $('#depths_wrapper').height() + 2 * BORDER_WIDTH;
+        my_orders_h = $('#my_orders').height() + 2 * BORDER_WIDTH;
+        ticker_h = $('#ticker').height() + 2 * BORDER_WIDTH;
+        window_h = $(this).height();
+        $('.content').height(window_h - navbar_h);
+        $('#candlestick').height(window_h - navbar_h - gutter_3x);
+        order_h = window_h - navbar_h - entry_h - depths_h - my_orders_h - ticker_h - gutter_6x - 2 * BORDER_WIDTH;
+        $('#order_book').height(order_h);
+        $('#order_book .panel-body-content').height(order_h - panel_table_header_high - 2 * PANEL_PADDING);
+        trades_h = window_h - navbar_h - markets_h - gutter_3x - BORDER_WIDTH;
+        $('#market_trades').height(trades_h);
+        $('#market_trades .panel').height(trades_h - 2 * BORDER_WIDTH);
+        $('#market_trades .panel-body-content').height(trades_h - 2 * BORDER_WIDTH - panel_table_header_high - 2 * PANEL_PADDING);
+        window_w = window.innerWidth;
+        markets_w = $('#market_list').width();
+        order_book_w = $('#order_book').width();
+        return $('#candlestick').width(window_w - order_book_w - markets_w - gutter_4x - 20);
+      });
+      return this.$node.resize();
+    });
+  });
+
+}).call(this);
+:ET

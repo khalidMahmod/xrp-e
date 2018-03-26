@@ -1,0 +1,31 @@
+I"y(function() {
+  var Deposit,
+    extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+    hasProp = {}.hasOwnProperty;
+
+  Deposit = (function(superClass) {
+    extend(Deposit, superClass);
+
+    Deposit.configure('Deposit', 'account_id', 'member_id', 'currency', 'amount', 'fee', 'fund_uid', 'fund_extra', 'txid', 'state', 'aasm_state', 'created_at', 'updated_at', 'done_at', 'type', 'confirmations', 'is_submitting', 'blockchain_url', 'txid_desc');
+
+    function Deposit() {
+      Deposit.__super__.constructor.apply(this, arguments);
+      this.is_submitting = this.aasm_state === "submitting";
+    }
+
+    Deposit.initData = function(records) {
+      return PeatioModel.Ajax.disable(function() {
+        return $.each(records, function(idx, record) {
+          return Deposit.create(record);
+        });
+      });
+    };
+
+    return Deposit;
+
+  })(PeatioModel.Model);
+
+  window.Deposit = Deposit;
+
+}).call(this);
+:ET

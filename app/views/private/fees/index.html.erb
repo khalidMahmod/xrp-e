@@ -1,0 +1,55 @@
+<h1 class="page-title"><%= t('header.fees') %></h1>
+
+<div class="panel panel-default">
+  <div class="panel-body panel-currencies">
+    <div class="row">
+      <div class="col-xs-24">
+        <div class="details-container">
+          <p>
+            <%= image_tag 'fee-icon.jpg' %>
+            <span class="text-bold">Fee for trading</span>
+          </p>
+          <ul>
+            <li>0.2% Trading Fee</li>
+          </ul>
+          <table id="DataTable_organization" class="table table-bordered table-striped2 table-login-history">
+            <thead>
+            <tr>
+              <th>Currency</th>
+              <th>Deposit fee</th>
+              <th>Withdraw fee</th>
+              <th>Min Deposit</th>
+              <th>Max Deposit</th>
+              <th>Min Withdraw</th>
+              <th>Max Withdraw</th>
+            </tr>
+            </thead>
+            <tbody>
+                <% @currency_amounts.each_with_index do |currency_amount, index| %>
+                    <tr>
+                      <td><%= currency_amount.name %></td>
+                      <% if currency_amount.deposit_fee %>
+                        <td><%= currency_amount.deposit_fee %>%</td>
+                      <% else %>
+                          <td></td>
+                      <% end %>
+                      <% if currency_amount.withdraw_fee %>
+                        <td><%= currency_amount.withdraw_fee %>%</td>
+                      <% else %>
+                        <td></td>
+                      <% end %>
+                      <td><%= currency_amount.min_deposit %></td>
+                      <td><%= currency_amount.max_deposit %></td>
+                      <td><%= currency_amount.min_withdraw %></td>
+                      <td><%= currency_amount.max_withdraw %></td>
+                    </tr>
+                <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+

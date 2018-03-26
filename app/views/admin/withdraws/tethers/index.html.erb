@@ -1,0 +1,20 @@
+<% unless @one_tethers.empty? %>
+  <div class="panel panel-primary">
+    <div class="panel-heading">
+      <span><%= t('.one') %></span>
+    </div>
+    <%= render partial: 'table', locals: {tethers: @one_tethers} %>
+  </div>
+<% end %>
+<% unless @all_tethers.empty? %>
+  <div class="panel panel-success">
+    <div class="panel-heading">
+      <span><%= t('.all') %></span>
+    </div>
+    <%= render partial: 'table', locals: {tethers: @all_tethers} %>
+  </div>
+<% end %>
+
+<% if @all_tethers.empty? and @one_tethers.empty? %>
+  <h3 class="text-info text-center"><%= t('.empty') %></h3>
+<% end %>

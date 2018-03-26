@@ -1,0 +1,118 @@
+// Place all the styles related to the member_mfa_sessions controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+.verify_2fa {
+
+  margin: 10% auto;
+  border: 2px solid #edebff;
+  background-color: #fffbff;
+  border-radius: 5px;
+  padding: 20px;
+  display: table;
+  width: 320px;
+  p {
+    font-size: 16px;
+  }
+
+  .verify_code_text {
+
+    height: 40px;
+
+  }
+}
+.custom-header-font {
+  font-weight: bolder;
+}
+.image_google_authenticator {
+  width: 250px;
+  height: 250px;
+  background: url("google_authenticator.png") no-repeat center center;
+  background-size: 250px 220px;
+}
+
+.image_google_authenticator_app_screen {
+  width: 160px;
+  height: 250px;
+  background: url("Google_Authenticator_App_Screen.png") no-repeat center center;
+  background-size: 160px 250px;
+  float: right;
+  margin-right: 10%;
+}
+
+.fa_new_page {
+  padding-bottom: 50px;
+}
+
+.two-fa-container {
+    margin-bottom: 30px;
+    line-height: 24px;
+}
+
+.two-fa-container .jumbotron.two-fa-facilities {
+    padding-left: 0;
+    padding-bottom: 10px;
+    padding-top: 20px;
+}
+
+#fa_new_page_code_input {
+  width: 150px;
+  padding-right: 5px;
+}
+
+.new_page_table_for_input_and_enable {
+  margin-top: 20px;
+}
+
+.short_ul_details_google_authenticator {
+  background-color: #cfd5f2;
+  border-radius: 5px;
+  padding: 20px 30px;
+}
+.icon {
+  width: 16px;
+  height: 16px;
+  padding: 0;
+  margin: 0;
+  vertical-align: middle;
+}
+
+.login-history-container {
+    padding: 10px 25px 0;
+    background: white;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}
+
+.text-bold {
+    font-weight: bold;
+}
+
+.table-login-history thead {
+    background-color: #F3F3F3;
+    border-color: #29333c;
+}
+
+.table-striped > tbody > tr:nth-child(even) > td, .table-striped > tbody > tr:nth-child(even) > th {
+    background-color: #cbedd8;
+}
+
+.table-striped2 > tbody > tr:nth-child(even) > td, .table-striped2 > tbody > tr:nth-child(even) > th {
+  background-color: #F3F3F3;
+}
+
+.table-striped > tbody > tr:nth-child(odd) > td, .table-striped > tbody > tr:nth-child(odd) > th {
+    background-color: #e7e7e7;
+}
+
+.fa_code_text_field_td {
+  padding-right: 5px;
+}
+.authenticator_app_download_link{
+  color: #366ec9;
+}
+
+.table-striped2 > tbody > tr:nth-child(even) > th.fees-table-head {
+    background-color: #364450;
+    border-color: #29333c;
+    color: #DCDCDC;
+}
